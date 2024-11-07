@@ -7,7 +7,98 @@ total_rounds = 0
 correct_score = 0
 wrong_score = 0
 game_control = True
-url = 'https://opentdb.com/api.php?amount=1&category=21&difficulty=easy&type=multiple'
+
+def category_func():
+    category_ = input(""" Please input the game category in decimals or 'more' to see more category:\n
+    9 for general knowledge\n
+    10 for entertainment: Books\n
+    11 for entertainment: film\n
+    12 for entertainment: music\n
+    13 for entertainment: musicala and theatres\n
+    more for more category
+    """
+                     )
+    if category_ == 'more':
+        category_ = input("""
+    14 for entertainment: television\n
+    15 for entertainment: video games\n
+    16 for entertainment: board games\n
+    17 for science & nature\n
+    18 for science: computers\n
+    more for more category
+    """
+              )
+    if category_ == 'more':
+        category_ = input("""
+    19 for science: mathematics\n
+    20 for mythology\n
+    21 for sports\n
+    22 for geography\n
+    23 for history\n
+    24 for politics\n
+    """
+                     )
+    return category_
+
+category = category_func()
+
+data_valid = False
+while data_valid != True:
+    if category == 'more':
+        print('######################################')
+        print('Please choose the right category in decimals ("more" is not a category)')
+        print('######################################\n')
+        category = category_func()
+    if category.isdecimal():
+        if 8 < int(category) < 25:
+            data_valid = True
+        else:
+            print('######################################')
+            print('Please choose the right category. Category ranges from 9 - 24')
+            print('######################################\n')
+            category = category_func()
+    else:
+        print('######################################')
+        print('Please choose the right category only.')
+        print('######################################\n')
+        category = category_func()
+
+difficulty = input('\nPlease input the difficulty level. Select from this list: EASY, MEDIUM or DIFFICULTY ')
+
+data_valid = False
+while data_valid != True:
+    if difficulty.isalpha():
+        if difficulty.lower() == 'easy':
+            print(f'You have chosen {difficulty} level\n')
+            print('######################################')
+            print('Fetching the question...')
+            print('######################################\n')
+            data_valid = True
+        elif difficulty.lower() == 'medium':
+            print(f'You have chosen {difficulty} level\n')
+            print('######################################')
+            print('Fetching the question...')
+            print('######################################\n')
+            data_valid = True
+        elif difficulty.lower() == 'difficulty':
+            print(f'You have chosen {difficulty} level\n')
+            print('######################################')
+            print('Fetching the question...')
+            print('######################################\n')
+            data_valid = True
+        else:
+            print('######################################')
+            print('Please choose the correct difficulty level (EASY, MEDIUM or DIFFICULTY).')
+            print('######################################\n')
+            difficulty = input('\nPlease input the difficulty level. Select from this list: EASY, MEDIUM or DIFFICULTY ')
+    else:
+        print('######################################')
+        print('The difficulty level should be alphabets (EASY, MEDIUM or DIFFICULTY).')
+        print('######################################\n')
+        difficulty = input('\nPlease input the difficulty level. Select from this list: EASY, MEDIUM or DIFFICULTY ')
+
+
+url = f'https://opentdb.com/api.php?amount=1&category={category}&difficulty={difficulty.lower()}&type=multiple'
 
 while game_control:
     data = requests.get(url)
