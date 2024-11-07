@@ -149,7 +149,7 @@ while game_control:
             print('----------------------------','\n')
         print('----------------------------')
         total_rounds += 1
-        play_again = input('Play again? ')
+        play_again = input('Play again? (yes or no) ')
         if play_again.lower() == 'yes':
             pass
         else:
